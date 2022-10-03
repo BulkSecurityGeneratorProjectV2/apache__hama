@@ -53,6 +53,9 @@ public class RunJar {
           InputStream in = jar.getInputStream(entry);
           try {
             File file = new File(toDir, entry.getName());
+            if (!file.toPath().normalize().startsWith(toDir.toPath().normalize())) {
+              throw new IOException("Bad zip entry");
+            }
             file.getParentFile().mkdirs();
             OutputStream out = new FileOutputStream(file);
             try {
