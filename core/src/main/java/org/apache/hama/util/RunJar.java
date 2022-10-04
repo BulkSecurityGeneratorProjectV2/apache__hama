@@ -27,6 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -107,9 +108,7 @@ public class RunJar {
     }
     mainClassName = mainClassName.replaceAll("/", ".");
 
-    final File workDir = File.createTempFile("hama-unjar", "");
-    workDir.delete();
-    workDir.mkdirs();
+    final File workDir = Files.createTempDirectory("hama-unjar").toFile();
 
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
